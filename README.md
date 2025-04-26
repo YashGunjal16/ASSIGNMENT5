@@ -1,114 +1,121 @@
-# 🚀 Demand Forecasting in Supply Chain Management using LSTM
+🚀 Univariate Time Series Forecasting using LSTM
+This repository contains the implementation of an LSTM-based model for forecasting future values in a univariate time series environment, specifically forecasting daily minimum temperatures. The project uses the famous Daily Minimum Temperatures dataset and applies deep learning techniques for time series forecasting.
 
-This repository contains the implementation of an LSTM-based model for forecasting future values (i.e., demand) in a supply chain environment using retail inventory data. The project is motivated by the research paper *"Evaluation of Deep Learning with Long Short-Term Memory Networks for Time Series Forecasting in Supply Chain Management"* and applies similar techniques to a *Retail Store Inventory Forecasting* dataset from Kaggle.
-
----
-
-## 📖 Overview
-
+📖 Overview
 This project aims to:
-- Forecast future demand (Units Sold) using deep learning models.
-- Implement and compare two approaches:
-  - **Standard LSTM**
-  - **Bidirectional LSTM (BiLSTM)**
-- Evaluate model performance using RMSE and MAE metrics.
-- Provide visual insights by plotting actual vs. predicted values.
 
----
+Forecast future daily minimum temperatures using deep learning.
 
-## 📚 Research Paper Summary
+Implement a Standard LSTM model for univariate time series forecasting.
 
-- **Title:** Evaluation of Deep Learning with Long Short-Term Memory Networks for Time Series Forecasting in Supply Chain Management
-- **Focus:** The paper explores the effectiveness of LSTM networks to forecast demand in supply chain scenarios.
-- **Methodology:** It emphasizes data preprocessing, normalization, sequence generation, and LSTM architecture design to handle nonlinear dependencies and irregular data fluctuations.
-- **Results:** LSTM models demonstrated improved accuracy over traditional forecasting approaches, as confirmed via RMSE/MAE metrics.
+Evaluate model performance using RMSE and MAE metrics.
 
----
+Visualize the actual vs. predicted values.
 
-## 🗃️ Dataset
+📚 Problem Statement
+Objective:
+Forecast future temperature values based on historical daily minimum temperature data.
 
-- **Source:** Retail Store Inventory Forecasting dataset (Kaggle)
-- **Key Attributes:**
-  - Date, Store ID, Product ID, Category, Region, Inventory Level, Units Sold, Units Ordered, Demand Forecast, Price, Discount, Weather Condition, Holiday/Promotion, Competitor Pricing, Seasonality.
-- **Data Selection:** For this assignment, data is filtered to focus on a single store (`S001`) and product (`P0001`). The primary focus is on forecasting the `Units Sold`.
+Dataset:
 
----
+Source: Daily Minimum Temperatures in Melbourne, Australia (via TensorFlow/Kaggle)
 
-## 🛠️ Methodology
+Key Attribute: Temp (Temperature in degrees Celsius)
 
-1. **Data Exploration & Preprocessing:**
-   - Load and inspect the dataset.
-   - Filter the dataset for a specific store-product combination.
-   - Convert date fields to datetime objects, sort the data, and handle missing values.
-   
-2. **Normalization:**
-   - Normalize the `Units Sold` data using MinMaxScaler.
+Timeframe: 1981 to 1990
 
-3. **Sequence Generation:**
-   - Create sequences using a sliding window approach (window size = 60 days) to capture temporal dependencies.
+🗃️ Dataset
+Attributes:
 
-4. **Model Development:**
-   - Build a **Standard LSTM** model and a **Bidirectional LSTM (BiLSTM)** model.
-   - Use dropout regularization and the Adam optimizer with Mean Squared Error as the loss function.
+Date (Timestamp)
 
-5. **Training and Evaluation:**
-   - Split data into training (80%) and testing (20%) sets.
-   - Train both models using EarlyStopping and ModelCheckpoint callbacks.
-   - Evaluate using RMSE and MAE metrics.
+Temp (Daily minimum temperature)
 
-6. **Visualization:**
-   - Plot prediction vs. actual values for visual comparison.
+Data Source:
+Automatically fetched using TensorFlow utilities from this URL.
 
----
+🛠️ Methodology
+Data Exploration & Preprocessing:
 
-## 📊 Visualizations
+Load and inspect the dataset.
 
-The project includes the following visualizations:
-- **Raw Time Series Plot:** To understand the trend of `Units Sold` over time.
-- **Scaled Data Plot:** To verify proper normalization of the data.
-- **Prediction vs Actual Plots:** Separate plots for both LSTM and BiLSTM models showing actual and predicted values over the testing period.
+Focus on the Temp column.
 
----
+Handle missing values (if any).
 
-## 📈 Our Model Performance
+Normalization:
 
-The models were evaluated on the test set with the following metrics (values may vary):
-- **Standard LSTM:**
-  - RMSE: *108.84*
-  - MAE: *91.49*
-- **Bidirectional LSTM:**
-  - RMSE: *108.60*
-  - MAE: *92.23*
+Apply MinMaxScaler to normalize temperature values between 0 and 1.
 
-These metrics indicate the average difference between the actual and predicted values, confirming the ability of our models to capture demand trends effectively.
+Sequence Generation:
 
----
+Create input-output sequences using a 30-day lookback window.
 
-## 🔍 Comparison with Research Paper Results
+Reshape the input to fit the LSTM requirements: [samples, timesteps, features].
 
-- **Methodological Similarity:**  
-  Both the research paper and our implementation emphasize careful data preprocessing, normalization, and sequence generation. Our LSTM architectures, with dropout and the choice of hyperparameters, closely follow the paper’s guidelines.
-  
-- **Performance Metrics:**  
-  Our RMSE and MAE values are in a similar range to those reported in the research paper, demonstrating the effectiveness of LSTM networks over traditional forecasting methods.
-  
-- **Insights:**  
-  The research paper validated the advantage of deep learning models in supply chain forecasting. Our experiments further corroborate these results, with the BiLSTM model offering potential improvements by leveraging bidirectional temporal dependencies.
+Model Development:
 
----
+Build a Sequential LSTM model:
 
-## 🎯 Conclusion
+One LSTM layer with 50 units and tanh activation.
 
-This project successfully demonstrates how LSTM-based models can be used for demand forecasting in supply chain management. Key conclusions are:
-- **Effective Forecasting:**  
-  Both the standard LSTM and BiLSTM models capture the complex, nonlinear behavior of retail demand.
-- **Research Validation:**  
-  Our results validate the findings of the referenced research paper, offering competitive performance as measured by RMSE and MAE.
-- **Future Work:**  
-  Future enhancements could include hyperparameter tuning, integration of additional features (e.g., weather data, promotional events), and exploring ensemble methods for further improvement.
+A Dense output layer with one neuron (for the next day's prediction).
 
----
+Compile with Adam optimizer and MSE loss.
 
-## 🙏 Acknowledgements
+Training and Evaluation:
 
-- Research Paper: *"Pacella, Massimo & Papadia, Gabriele. (2021). Evaluation of deep learning with long short-term memory networks for time series forecasting in supply chain management. Procedia CIRP. 99. 604-609. 10.1016/j.procir.2021.03.081."*  
+Split data into 80% training and 20% testing.
+
+Train the model using early stopping for optimization.
+
+Evaluate the model performance using RMSE and MAE.
+
+Visualization:
+
+Plot actual vs. predicted temperatures to visually assess the model’s forecasting ability.
+
+📊 Visualizations
+The project includes:
+
+Raw Time Series Plot:
+Shows the original daily minimum temperatures over time.
+
+Prediction vs Actual Plot:
+Displays how closely the model's forecasted values align with the true observed temperatures.
+
+📈 Model Performance
+Evaluated using the testing dataset:
+
+Root Mean Squared Error (RMSE): [value will vary depending on training run]
+
+Mean Absolute Error (MAE): [value will vary depending on training run]
+
+These metrics demonstrate how accurately the model captures the temperature trend.
+
+🔍 Insights
+LSTM models are effective for capturing sequential patterns in weather data.
+
+Normalization and proper windowing are key to improving model accuracy.
+
+Training on sliding windows helps the model generalize well over time.
+
+🎯 Conclusion
+This project successfully demonstrates the power of Long Short-Term Memory (LSTM) networks for univariate time series forecasting.
+It highlights key practices such as:
+
+Careful data preprocessing,
+
+Sliding window generation,
+
+Sequential model design,
+
+Proper evaluation and visualization.
+
+This approach can be extended to other time series domains like stock prediction, energy consumption forecasting, and more!
+
+🙏 Acknowledgements
+Dataset Source: Daily Minimum Temperatures in Melbourne (via TensorFlow / Kaggle)
+
+Techniques inspired by best practices for deep learning in time series forecasting.
+
