@@ -36,7 +36,6 @@ Automatically fetched using TensorFlow utilities from this URL.
 
 🛠️ Methodology
 Data Exploration & Preprocessing:
-
 Load and inspect the dataset.
 
 Focus on the Temp column.
@@ -44,65 +43,61 @@ Focus on the Temp column.
 Handle missing values (if any).
 
 Normalization:
-
 Apply MinMaxScaler to normalize temperature values between 0 and 1.
 
 Sequence Generation:
-
 Create input-output sequences using a 30-day lookback window.
 
-Reshape the input to fit the LSTM requirements: [samples, timesteps, features].
+Reshape the input to fit the LSTM input format: [samples, timesteps, features].
 
 Model Development:
-
 Build a Sequential LSTM model:
 
 One LSTM layer with 50 units and tanh activation.
 
-A Dense output layer with one neuron (for the next day's prediction).
+A Dense output layer with one neuron (for next-day prediction).
 
-Compile with Adam optimizer and MSE loss.
+Compile using Adam optimizer and MSE loss function.
 
 Training and Evaluation:
+Split data into 80% training and 20% testing sets.
 
-Split data into 80% training and 20% testing.
+Train the model using early stopping for better generalization.
 
-Train the model using early stopping for optimization.
-
-Evaluate the model performance using RMSE and MAE.
+Evaluate model performance using RMSE and MAE metrics.
 
 Visualization:
-
 Plot actual vs. predicted temperatures to visually assess the model’s forecasting ability.
 
 📊 Visualizations
-The project includes:
+This project includes:
 
 Raw Time Series Plot:
-Shows the original daily minimum temperatures over time.
+Displays the original daily minimum temperatures over time.
 
 Prediction vs Actual Plot:
-Displays how closely the model's forecasted values align with the true observed temperatures.
+Shows how closely the model's forecasted values align with the true observed temperatures.
 
 📈 Model Performance
 Evaluated using the testing dataset:
 
-Root Mean Squared Error (RMSE): [value will vary depending on training run]
+Root Mean Squared Error (RMSE): (Value varies depending on training run)
 
-Mean Absolute Error (MAE): [value will vary depending on training run]
+Mean Absolute Error (MAE): (Value varies depending on training run)
 
-These metrics demonstrate how accurately the model captures the temperature trend.
+These metrics demonstrate the model's ability to accurately capture the underlying temperature trend.
 
 🔍 Insights
-LSTM models are effective for capturing sequential patterns in weather data.
+LSTM models are effective in capturing sequential patterns in weather data.
 
-Normalization and proper windowing are key to improving model accuracy.
+Normalization and proper windowing are crucial for improving model performance.
 
-Training on sliding windows helps the model generalize well over time.
+Training on sliding windows allows the model to generalize better over time.
 
 🎯 Conclusion
 This project successfully demonstrates the power of Long Short-Term Memory (LSTM) networks for univariate time series forecasting.
-It highlights key practices such as:
+
+Key highlights include:
 
 Careful data preprocessing,
 
@@ -112,10 +107,9 @@ Sequential model design,
 
 Proper evaluation and visualization.
 
-This approach can be extended to other time series domains like stock prediction, energy consumption forecasting, and more!
+This approach can be extended to other time series domains like stock price prediction, energy consumption forecasting, and many more!
 
 🙏 Acknowledgements
 Dataset Source: Daily Minimum Temperatures in Melbourne (via TensorFlow / Kaggle)
 
-Techniques inspired by best practices for deep learning in time series forecasting.
-
+Techniques: Inspired by best practices for deep learning-based time series forecasting.
